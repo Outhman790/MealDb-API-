@@ -1,0 +1,115 @@
+.btn-meal-info {
+  margin-top: auto;
+}
+#modal h2 {
+  margin-top: 2rem;
+}
+#modal h2,
+#modal p {
+  text-align: center;
+}
+#modal span {
+  display: inline-block;
+  color: #5d5d5d;
+  font-weight: 600;
+  margin: 0 auto;
+}
+.modal-instructions h3 {
+  text-align: center;
+}
+#modal {
+  max-width: 1000px;
+  background-color: bisque;
+  position: relative;
+  top: 0;
+  border: 2px solid rgb(210, 210, 210);
+  margin: 0.75rem auto 0 auto;
+  z-index: 20;
+}
+.close-icon {
+  height: 1rem;
+  width: 1rem;
+  float: right;
+  margin: 0.5rem 0.75rem;
+}
+.close-icon:hover {
+  scale: 1.35;
+  opacity: 0.5;
+  transition: all ease-in;
+}
+.meal-img-div {
+  text-align: center;
+  padding: 1rem 3rem 3rem 3rem;
+  margin: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.modal-meal-info {
+  text-align: center;
+  margin: 1rem 0 0 0;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+  z-index: 10;
+}
+.meal-img {
+  max-width: 12rem;
+  max-height: 12rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  align-self: center;
+  border: 2px solid rgb(210, 210, 210);
+}
+.filter-meals {
+  text-decoration: none;
+  color: black;
+  margin-right: auto;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-left: calc(100% / 2 - 160px);
+  font-size: large;
+}
+.filter-meals:hover {
+  scale: 1.2;
+  color: #0044aa;
+  transition: all ease-in-out 0.25s;
+}
+.search-btn {
+  font-size: 1.2rem;
+}
+.no-items {
+  display: block;
+  margin: 0 auto;
+  width: fit-content;
+  font-size: 2rem;
+  color: red;
+  font-weight: 500;
+}
+#pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+}
+
+#pagination button {
+  color: black;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  outline: none;
+  border: none;
+}
+
+#pagination button.active {
+  background-color: #0d6efd;
+  color: white;
+}
+
+#pagination button:hover:not(.active) {
+  background-color: #85b6ff;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipes Api</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body class="bg-light">
+    <div class="container bg-white">
+      <header>
+        <!-- Image and text -->
+        <nav class="navbar navbar-light bg-light">
+          <a class="navbar-brand" href="index.html">
+            <img
+              src="/logo.png"
+              width="100"
+              height="100"
+              class="d-inline-block align-top"
+              alt=""
+            />
+          </a>
+          <a
+            class="filter-meals"
+            href="sorted.html"
+            onclick="window.location.href='sorted.html'"
+            >Filter Meals</a
+          >
+        </nav>
+      </header>
+      <form id="search-form" class="form-inline container pt-5 mb-5">
+        <div class="form-floating d-flex gap-4 justify-content-around">
+          <input
+            id="search-input"
+            class="form-control mr-sm-2 w-75"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <label for="search-input">Meal name here</label>
+          <button type="submit" class="btn btn-primary search-btn w-25">
+            Search Meal
+          </button>
+        </div>
+        <div
+          id="search-result"
+          class="row gap-4 d-flex justify-content-around"
+        ></div>
+        <div id="pagination"></div>
+      </form>
+      <div class="row gap-4 justify-content-around"></div>
+      <div class="no-items">No items Found</div>
+    </div>
+    <div id="modal"></div>
+    <div class="overlay"></div>
+  </body>
+</html>
