@@ -22,13 +22,17 @@ const showData = (arr) => {
     />
     <div class="card-body text-center py-4">
       <h5 class="card-title">${ele.strMeal}</h5>
+      <div class="meal-details mb-3">
+        <span class="badge bg-secondary me-2">${ele.strCategory || "N/A"}</span>
+        <span class="badge bg-info">${ele.strArea || "N/A"}</span>
+      </div>
       <a href="" class="btn btn-primary btn-meal-info">more info</a>
     </div>
     </div>
     </div>
     `;
-    sixRandomMeals.innerHTML += data;
   });
+  sixRandomMeals.innerHTML += data;
 };
 /*
 this is a function for getting six random meals and it is 
@@ -162,13 +166,19 @@ function DisplayList(items, wrapper, mealsPerPage, page) {
     // item will be an element from the sliced array
     searchedMeal += `
         <div class="card mt-4 p-0" style="width: 18rem;">
-          <div data-id = "${paginatedItems[i].idMeal}">
+          <div class="mealDiv" data-id = "${paginatedItems[i].idMeal}">
         <img
   class="card-img-top" src="${paginatedItems[i].strMealThumb}"
   />
   <div class="card-body text-center">
     <h5 class="card-title">${paginatedItems[i].strMeal}</h5>
-    <a href="" class="btn btn-primary btn-meal-info">Go somewhere</a>
+    <div class="meal-details mb-3">
+      <span class="badge bg-secondary me-2">${
+        paginatedItems[i].strCategory || "N/A"
+      }</span>
+      <span class="badge bg-info">${paginatedItems[i].strArea || "N/A"}</span>
+    </div>
+    <a href="" class="btn btn-primary btn-meal-info">more info</a>
   </div>
   </div>
   </div>
