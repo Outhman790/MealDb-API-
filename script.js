@@ -10,10 +10,63 @@ let mealName;
 let dataArr = [];
 const sixRandomMeals = document.querySelectorAll(".row")[1];
 document.querySelector(".no-items").style.display = "none";
+// Function to generate unique descriptions for meals
+const generateMealDescription = (meal) => {
+  const descriptions = [
+    `A mouthwatering ${
+      meal.strCategory || "delicious"
+    } dish that will transport your taste buds to ${
+      meal.strArea || "culinary heaven"
+    }.`,
+    `Experience the authentic flavors of ${
+      meal.strArea || "traditional"
+    } cuisine with this exquisite ${meal.strCategory || "dish"}.`,
+    `Discover the perfect blend of spices and ingredients in this ${
+      meal.strCategory || "amazing"
+    } creation from ${meal.strArea || "around the world"}.`,
+    `Indulge in this ${
+      meal.strCategory || "scrumptious"
+    } masterpiece that showcases the rich culinary heritage of ${
+      meal.strArea || "diverse cultures"
+    }.`,
+    `Savor every bite of this ${
+      meal.strCategory || "delectable"
+    } delight, crafted with love and tradition from ${
+      meal.strArea || "time-honored recipes"
+    }.`,
+    `Embark on a culinary journey with this ${
+      meal.strCategory || "fantastic"
+    } dish that celebrates the essence of ${meal.strArea || "global cuisine"}.`,
+    `Treat yourself to this ${
+      meal.strCategory || "incredible"
+    } creation that brings the authentic taste of ${
+      meal.strArea || "home cooking"
+    } to your table.`,
+    `Experience pure gastronomic bliss with this ${
+      meal.strCategory || "exceptional"
+    } dish from the heart of ${meal.strArea || "culinary excellence"}.`,
+    `Delight in this ${
+      meal.strCategory || "wonderful"
+    } recipe that captures the spirit and flavors of ${
+      meal.strArea || "traditional cooking"
+    }.`,
+    `Immerse yourself in the rich aromas and flavors of this ${
+      meal.strCategory || "extraordinary"
+    } dish from ${meal.strArea || "distant lands"}.`,
+  ];
+
+  // Use meal name to create a consistent but varied description
+  const index = meal.strMeal.length % descriptions.length;
+  return descriptions[index];
+};
+
 // a function for print meals
 const showData = (arr) => {
   let data = "";
   arr.forEach((ele) => {
+    // Generate unique description for each meal
+    const description = generateMealDescription(ele);
+
     data += `
     <div class="card mt-4 p-0"  style="width: 18rem; ">
     <div class="mealDiv" data-id = "${ele.idMeal}">
@@ -26,6 +79,7 @@ const showData = (arr) => {
         <span class="badge bg-secondary me-2">${ele.strCategory || "N/A"}</span>
         <span class="badge bg-info">${ele.strArea || "N/A"}</span>
       </div>
+      <p class="card-description mb-3">${description}</p>
       <a href="" class="btn btn-primary btn-meal-info">more info</a>
     </div>
     </div>
@@ -162,6 +216,9 @@ function DisplayList(items, wrapper, mealsPerPage, page) {
   // we'll loop through the sliced array and we'll create an item who takes the value of the sliced array element each time the loop iterates
   for (let i = 0; i < paginatedItems.length; i++) {
     // item will be an element from the sliced array
+    // Generate unique description for each meal
+    const description = generateMealDescription(paginatedItems[i]);
+
     searchedMeal += `
         <div class="card mt-4 p-0" style="width: 18rem;">
           <div class="mealDiv" data-id = "${paginatedItems[i].idMeal}">
@@ -176,6 +233,7 @@ function DisplayList(items, wrapper, mealsPerPage, page) {
       }</span>
       <span class="badge bg-info">${paginatedItems[i].strArea || "N/A"}</span>
     </div>
+    <p class="card-description mb-3">${description}</p>
     <a href="" class="btn btn-primary btn-meal-info">more info</a>
   </div>
   </div>
