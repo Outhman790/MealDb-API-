@@ -113,3 +113,26 @@
 #pagination button:hover:not(.active) {
   background-color: #85b6ff;
 }
+
+/* Meal details styling */
+.meal-details {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.meal-details .badge {
+  font-size: 0.75rem;
+  padding: 0.5rem 0.75rem;
+}
+
+/* Reset button styling */
+.reset-btn {
+  margin-left: 0.5rem;
+}
+
+.reset-btn:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
