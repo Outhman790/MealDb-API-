@@ -183,82 +183,93 @@ const loadCategoriesandArreas = (async () => {
   document.querySelector(".filter-btn").addEventListener("click", async (e) => {
     const selectedCategory = document.querySelector("#meals-categories").value;
     const selectedAreaValue = document.querySelector("#meals-areas").value;
+
+    // If both are 'all', show all meals
     if (
       selectedCategory === "allCategories" &&
       selectedAreaValue === "allAreas"
     ) {
       callingAllMealsByCategory();
-    } else {
-      if (
-        selectedCategory === "allCategories" &&
-        selectedAreaValue !== "allAreas"
-      ) {
-        const fetchSelectedArea = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/filter.php?a=${selectedAreaValue}`
-        );
-        const selectedAreaResponse = await fetchSelectedArea.json();
-        console.log(selectedAreaResponse.meals);
-        console.log("all categories && choosen area");
-        displayList(
-          selectedAreaResponse.meals,
-          searchedResult,
-          mealsPerPage,
-          currentPage
-        );
-        setupPagination(
-          selectedAreaResponse.meals,
-          paginationElement,
-          mealsPerPage
-        );
-      } else if (
-        selectedCategory !== "allCategories" &&
-        selectedAreaValue === "allAreas"
-      ) {
-        // fetching categories based on the selected category
-        const fetchSelectedCategory = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
-        );
-        const selectedCategoryResponse = await fetchSelectedCategory.json();
-
-        console.log(selectedCategoryResponse);
-        document.querySelector(".row").innerHTML = "";
-        displayList(
-          selectedCategoryResponse.meals,
-          searchedResult,
-          mealsPerPage,
-          currentPage
-        );
-        setupPagination(
-          selectedCategoryResponse.meals,
-          paginationElement,
-          mealsPerPage
-        );
-      } else {
-        // fetching categories based on the selected category
-        const fetchSelectedCategory = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
-        );
-        const selectedCategoryResponse = await fetchSelectedCategory.json();
-        categoriesIdArr = [];
-        selectedCategoryResponse.meals.forEach((meal) => {
-          categoriesIdArr.push(meal.idMeal);
-        });
-        console.log(categoriesIdArr);
-        // fetching meals based on the selected area
-        const fetchSelectedArea = await fetch(
-          `https://www.themealdb.com/api/json/v1/1/filter.php?a=${selectedAreaValue}`
-        );
-        const selectedAreaResponse = await fetchSelectedArea.json();
-        areasIdArr = [];
-        // storing the meals by Area in an array to use it after with filtering by category ( intersection )
-        selectedAreaResponse.meals.forEach((meal) => {
-          areasIdArr.push(meal.idMeal);
-        });
-        console.log(areasIdArr);
-        getMealsByIdFromIntersection();
-      }
-      // console.log(areasIdArr);
-      document.querySelector(".row").innerHTML = "";
+    }
+    // If only area is selected
+    else if (
+      selectedCategory === "allCategories" &&
+      selectedAreaValue !== "allAreas"
+    ) {
+      const fetchSelectedArea = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/filter.php?a=${selectedAreaValue}`
+      );
+      const selectedAreaResponse = await fetchSelectedArea.json();
+      // Fetch full details for each meal
+      const fullMeals = await Promise.all(
+        selectedAreaResponse.meals.map(async (meal) => {
+          const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`);
+          const data = await res.json();
+          return data.meals[0];
+        })
+      );
+      displayList(
+        fullMeals,
+        searchedResult,
+        mealsPerPage,
+        currentPage
+      );
+      setupPagination(
+        fullMeals,
+        paginationElement,
+        mealsPerPage
+      );
+    }
+    // If only category is selected
+    else if (
+      selectedCategory !== "allCategories" &&
+      selectedAreaValue === "allAreas"
+    ) {
+      const fetchSelectedCategory = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
+      );
+      const selectedCategoryResponse = await fetchSelectedCategory.json();
+      // Fetch full details for each meal
+      const fullMeals = await Promise.all(
+        selectedCategoryResponse.meals.map(async (meal) => {
+          const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`);
+          const data = await res.json();
+          return data.meals[0];
+        })
+      );
+      displayList(
+        fullMeals,
+        searchedResult,
+        mealsPerPage,
+        currentPage
+      );
+      setupPagination(
+        fullMeals,
+        paginationElement,
+        mealsPerPage
+      );
+    }
+    // If both are selected, show intersection
+    else {
+      // Fetch meals by category
+      const fetchSelectedCategory = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
+      );
+      const selectedCategoryResponse = await fetchSelectedCategory.json();
+      categoriesIdArr = [];
+      selectedCategoryResponse.meals.forEach((meal) => {
+        categoriesIdArr.push(meal.idMeal);
+      });
+      // Fetch meals by area
+      const fetchSelectedArea = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/filter.php?a=${selectedAreaValue}`
+      );
+      const selectedAreaResponse = await fetchSelectedArea.json();
+      areasIdArr = [];
+      selectedAreaResponse.meals.forEach((meal) => {
+        areasIdArr.push(meal.idMeal);
+      });
+      getMealsByIdFromIntersection();
     }
   });
 
