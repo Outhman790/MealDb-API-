@@ -112,8 +112,6 @@ const mealModal = (meal, wrapper) => {
 <div class="ingredients-list">
 <h5>Ingredients list</h5>
 ${ingredients}
-<div>
-</div>
 </div>
 </div>
 `;
