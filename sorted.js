@@ -1,5 +1,6 @@
 "use strict";
 const filterBtn = document.querySelector(".filter-btn");
+const resetBtn = document.querySelector(".reset-btn");
 const searchedResult = document.querySelector("#search-result");
 // where the pagination buttons will be added
 const paginationElement = document.getElementById("pagination");
@@ -260,6 +261,21 @@ const loadCategoriesandArreas = (async () => {
       document.querySelector(".row").innerHTML = "";
     }
   });
+
+  // Reset filters functionality
+  resetBtn.addEventListener("click", () => {
+    // Reset select dropdowns to default values
+    document.querySelector("#meals-categories").value = "allCategories";
+    document.querySelector("#meals-areas").value = "allAreas";
+
+    // Clear current results
+    searchedResult.innerHTML = "";
+    paginationElement.innerHTML = "";
+    document.querySelector(".no-items").style.display = "none";
+
+    // Load all meals by default
+    callingAllMealsByCategory();
+  });
 })();
 // Loading lamb category and Morocco area as default when accessing the page
 const loadDefaultMeals = (async () => {
@@ -311,7 +327,13 @@ function displayList(items, wrapper, mealsPerPage, page) {
       />
       <div class="card-body text-center">
       <h5 class="card-title">${paginatedItems[i].strMeal}</h5>
-      <a href="" class="btn btn-primary btn-meal-info">Go somewhere</a>
+      <div class="meal-details mb-3">
+        <span class="badge bg-secondary me-2">${
+          paginatedItems[i].strCategory || "N/A"
+        }</span>
+        <span class="badge bg-info">${paginatedItems[i].strArea || "N/A"}</span>
+      </div>
+      <a href="" class="btn btn-primary btn-meal-info">more info</a>
       </div>
       </div>
       </div>
