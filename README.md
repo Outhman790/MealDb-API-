@@ -170,3 +170,10 @@ The application is fully responsive and optimized for:
 - **Keyframe Animations**: Smooth transitions
 - **Media Queries**: Responsive breakpoints
 - **Pseudo-elements**: Enhanced styling
+
+### Screenshots
+![image](https://github.com/user-attachments/assets/9ffd5e6c-5070-48d0-bb6d-b52f28f4a025)
+![image](https://github.com/user-attachments/assets/b35a5cbb-20bd-4e03-86fd-43cd1d87b708)
+![image](https://github.com/user-attachments/assets/4e3c33c2-3c09-4a9f-95d9-a6a20335ec52)
+
+
